@@ -1,0 +1,67 @@
+.prayers-container {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #222, #444);
+  color: white;
+  padding: 2rem;
+}
+
+.add-prayer textarea {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 1rem;
+}
+
+.visibility-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.prayer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.prayer-card {
+  background: rgba(255,255,255,0.1);
+  padding: 1rem;
+  border-radius: 10px;
+  position: relative;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.prayer-card.answered:hover {
+  transform: rotateY(180deg);
+}
+
+.prayer-card .front,
+.prayer-card .back {
+  position: absolute;
+  width: 100%;
+  -webkit-backface-visibility: hidden; /* Safari iOS support */
+  backface-visibility: hidden;
+}
+
+.prayer-card .back {
+  transform: rotateY(180deg);
+  background: rgba(0,255,204,0.2);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.badge {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  background: #00ffcc;
+  color: black;
+  font-size: 0.8rem;
+}

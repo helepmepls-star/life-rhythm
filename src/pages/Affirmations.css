@@ -1,0 +1,45 @@
+.affirmations-container {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #111, #333);
+  color: white;
+  padding: 2rem;
+}
+
+.add-affirmation {
+  margin-bottom: 2rem;
+}
+
+input {
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: none;
+  width: 70%;
+  margin-right: 1rem;
+}
+
+button {
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background: #ff6f61;
+  color: white;
+  cursor: pointer;
+}
+
+.affirmation-list {
+  margin-top: 2rem;
+}
+
+.affirmation-card {
+  background: rgba(255,255,255,0.1);
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 5px #ff6f61; }
+  to { text-shadow: 0 0 20px #ff6f61, 0 0 30px #ff6f61; }
+}

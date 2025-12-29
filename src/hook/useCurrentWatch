@@ -1,0 +1,45 @@
+import { useState, useEffect } from "react";
+import { db } from "../firebaseConfig"; // your Firebase config
+import { doc, getDoc } from "firebase/firestore";
+
+// Map hours to Watch IDs
+const watchMap = {
+  0: "12 AM",
+  3: "3 AM",
+  6: "6 AM",
+  9: "9 AM",
+  12: "12 PM",
+  15: "3 PM",
+  18: "6 PM",
+  21: "9 PM"
+};
+
+export function useCurrentWatch() {
+  const [watchData, setWatchData] = useState(null);
+
+  useEffect(() => {
+    async function fetchWatch() {
+      const now = new Date();
+      const hour = now.getHours();
+
+      // Find the nearest watch slot
+      const watchHour = Object.keys(watchMap)
+        .map(Number)
+        .reverse()
+        .find(h => hour >= h);
+
+      const watchId = watchMap[watchHour ?? 0]; // default to 12 AM
+
+      const ref = doc(db, "watchTemplates", watchId);
+      const snap = await getDoc(ref);
+
+      if (snap.exists()) {
+        setWatchData({ id: watchId, ...snap.data() });
+      }
+    }
+
+    fetchWatch();
+  }, []);
+
+  return watchData;
+}

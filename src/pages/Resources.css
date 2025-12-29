@@ -1,0 +1,38 @@
+.resources-container {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #222, #444);
+  color: white;
+  padding: 2rem;
+}
+
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.resource-card {
+  background: rgba(255,255,255,0.1);
+  padding: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.resource-card:hover {
+  transform: scale(1.05);
+}
+
+.resource-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.player {
+  margin-top: 2rem;
+  background: rgba(255,255,255,0.1);
+  padding: 1rem;
+  border-radius: 10px;
+}

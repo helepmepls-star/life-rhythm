@@ -1,0 +1,40 @@
+.bible-container {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #222, #444);
+  color: white;
+  padding: 2rem;
+}
+
+.verse-card {
+  background: rgba(255,255,255,0.1);
+  padding: 2rem;
+  border-radius: 10px;
+  margin: 2rem auto;
+  width: 80%;
+}
+
+.verse-card h2 {
+  color: #00ffcc;
+}
+
+.verse-card button {
+  margin-top: 1rem;
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background: #00ffcc;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.verse-selector button {
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: #c850c0;
+  color: white;
+  cursor: pointer;
+}

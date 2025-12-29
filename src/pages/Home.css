@@ -1,0 +1,65 @@
+.home-container {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffcc70, #c850c0, #4158d0);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  color: white;
+  padding: 2rem;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.hero h1 {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.circular-chart {
+  display: block;
+  margin: 20px auto;
+  max-width: 80px;
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 3.8;
+}
+
+.circle {
+  fill: none;
+  stroke-width: 2.8;
+  stroke: #00ffcc;
+  stroke-linecap: round;
+}
+
+.live-card {
+  background: rgba(255,255,255,0.1);
+  margin: 2rem auto;
+  padding: 1rem;
+  border-radius: 10px;
+  width: 80%;
+}
+
+.live-card em {
+  display: block;
+  margin-top: 0.5rem;
+  font-style: italic;
+  color: #ffebcd;
+}
+
+.quick-links button {
+  margin: 0.5rem;
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background: #00ffcc;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}

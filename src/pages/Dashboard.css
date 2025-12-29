@@ -1,0 +1,21 @@
+.dashboard-container {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #111, #333);
+  color: white;
+  padding: 2rem;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.dashboard-card {
+  background: rgba(255,255,255,0.1);
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: left;
+}
