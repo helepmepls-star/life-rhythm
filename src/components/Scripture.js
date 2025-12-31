@@ -94,10 +94,13 @@ export default function Scripture({ reference }) {
     const fullBook = bookMap[book] || book;
 
     // Load the book JSON
-    import(`../../public/data/${fullBook}.json`)
-      .then((bibleBook) => {
-        const chapters = bibleBook.chapters;
-        const chap = chapters.find(c => c.chapter === chapter);
+    fetch(`/data/${fullBook}.json`)
+      .then((response) => {
+        if (!response.ok) throw new Error(`Failed to load ${fullBook}`);
+        return response.json();
+      })
+      .then((data) => {
+        const chap = data.find(c => c.chapter === chapter);
         if (!chap) throw new Error(`Chapter ${chapter} not found in ${fullBook}`);
         const vers = chap.verses.find(v => v.verse === verse);
         if (!vers) throw new Error(`Verse ${verse} not found in ${fullBook} ${chapter}`);
