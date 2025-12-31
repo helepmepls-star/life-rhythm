@@ -69,6 +69,7 @@ export default function Dashboard({ user }) {
           <button onClick={() => navigate('/reflections')}>Reflections</button>
           <button onClick={() => navigate('/resources')}>Resources</button>
           <button onClick={() => navigate('/counselor')}>Counselor</button>
+          <button onClick={() => navigate('/timetable')}>Consecration Timetable</button>
           <button onClick={testNotification}>Test Notification</button>
         </div>
         <div className="dashboard-card">

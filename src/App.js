@@ -11,6 +11,7 @@ import Counselor from "./pages/Counselor";
 import MyPrayers from "./pages/MyPrayers";
 import Reflections from "./pages/Reflections";
 import Affirmations from "./pages/Affirmations";
+import Timetable from "./pages/Timetable";
 
 import { auth } from "./firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
@@ -48,6 +49,7 @@ function App() {
         <Route path="/prayers" element={user ? <MyPrayers user={user} /> : <Navigate to="/login" />} />
         <Route path="/reflections" element={user ? <Reflections user={user} /> : <Navigate to="/login" />} />
         <Route path="/affirmations" element={user ? <Affirmations user={user} /> : <Navigate to="/login" />} />
+        <Route path="/timetable" element={user ? <Timetable user={user} /> : <Navigate to="/login" />} />
       </Routes>
     </Router>
   );
