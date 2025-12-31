@@ -4,6 +4,7 @@ import "./Dashboard.css";
 import { auth, db } from "../firebaseConfig";
 import { collection, onSnapshot, query, orderBy, limit } from "firebase/firestore";
 import CurrentSegment from "../components/CurrentSegment";
+import usePrayerReminder from "../hook/usePrayerReminder";
 
 export default function Dashboard({ user }) {
   const [latestPrayer, setLatestPrayer] = useState(null);
@@ -11,6 +12,9 @@ export default function Dashboard({ user }) {
   const [latestAffirmation, setLatestAffirmation] = useState(null);
   const [featuredResource, setFeaturedResource] = useState(null);
   const [latestCounselor, setLatestCounselor] = useState(null);
+
+  // Use prayer reminder hook
+  const { testNotification } = usePrayerReminder();
 
   useEffect(() => {
     const user = auth.currentUser;
@@ -65,6 +69,7 @@ export default function Dashboard({ user }) {
           <button onClick={() => navigate('/reflections')}>Reflections</button>
           <button onClick={() => navigate('/resources')}>Resources</button>
           <button onClick={() => navigate('/counselor')}>Counselor</button>
+          <button onClick={testNotification}>Test Notification</button>
         </div>
         <div className="dashboard-card">
           <h3>Latest Prayer</h3>
