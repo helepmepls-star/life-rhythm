@@ -24,7 +24,7 @@ export default function Dashboard({ user }) {
   const { isInstallable, installPWA } = usePWAInstall();
 
   // Use FCM hook
-  const { token, permission } = useFCM();
+  const { token, permission } = useFCM(user);
 
   useEffect(() => {
     const user = auth.currentUser;

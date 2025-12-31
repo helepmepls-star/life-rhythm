@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { messaging } from '../firebaseConfig';
 import { getToken, onMessage } from 'firebase/messaging';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '../firebaseConfig';
 
-export default function useFCM() {
+export default function useFCM(user) {
   const [token, setToken] = useState(null);
   const [permission, setPermission] = useState('default');
 
   useEffect(() => {
+    if (!user) return;
+
     // Request permission and get token
     const requestPermission = async () => {
       try {
@@ -15,12 +19,16 @@ export default function useFCM() {
 
         if (permissionResult === 'granted') {
           const currentToken = await getToken(messaging, {
-            vapidKey: 'YOUR_VAPID_KEY_HERE' // You'll need to generate this in Firebase Console
+            vapidKey: 'YOUR_VAPID_KEY_HERE' // Replace with your actual VAPID key from Firebase Console
           });
           if (currentToken) {
             setToken(currentToken);
             console.log('FCM Token:', currentToken);
-            // Here you could send the token to your server to store for sending notifications
+
+            // Store token in Firestore
+            await updateDoc(doc(db, 'users', user.uid), {
+              fcmToken: currentToken
+            });
           } else {
             console.log('No registration token available.');
           }
@@ -43,7 +51,7 @@ export default function useFCM() {
     });
 
     return unsubscribe;
-  }, []);
+  }, [user]);
 
   return { token, permission };
 }
