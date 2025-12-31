@@ -6,6 +6,7 @@ import { collection, onSnapshot, query, orderBy, limit } from "firebase/firestor
 import { doc, getDoc } from "firebase/firestore";
 import CurrentSegment from "../components/CurrentSegment";
 import usePrayerReminder from "../hook/usePrayerReminder";
+import usePWAInstall from "../hook/usePWAInstall";
 
 export default function Dashboard({ user }) {
   const [latestPrayer, setLatestPrayer] = useState(null);
@@ -17,6 +18,9 @@ export default function Dashboard({ user }) {
 
   // Use prayer reminder hook
   const { testNotification } = usePrayerReminder();
+
+  // Use PWA install hook
+  const { isInstallable, installPWA } = usePWAInstall();
 
   useEffect(() => {
     const user = auth.currentUser;
@@ -82,6 +86,7 @@ export default function Dashboard({ user }) {
           <button onClick={() => navigate('/resources')}>Resources</button>
           <button onClick={() => navigate('/counselor')}>Counselor</button>
           <button onClick={() => navigate('/timetable')}>Consecration Timetable</button>
+          {isInstallable && <button onClick={installPWA}>Install LifeRhythm App</button>}
           <button onClick={testNotification}>Test Notification</button>
         </div>
         <div className="dashboard-card">
