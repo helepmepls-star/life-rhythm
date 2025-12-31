@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { projectId } from "../firebaseConfig";
 
-// Fetch scripture via serverless proxy (Cloud Function) which caches in Firestore
+// Fetch scripture directly from bible-api.com (public API)
 export default function Scripture({ reference }) {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
@@ -12,23 +11,20 @@ export default function Scripture({ reference }) {
     setLoading(true);
     setError(null);
 
-    // Cloud Function URL (deployed) — use local emulator when running on localhost
-    const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-    const funcUrl = isLocal
-      ? `http://localhost:5001/${projectId}/us-central1/scripture?ref=${encodeURIComponent(ref)}`
-      : `https://us-central1-${projectId}.cloudfunctions.net/scripture?ref=${encodeURIComponent(ref)}`;
+    // Direct API call to bible-api.com
+    const apiUrl = `https://bible-api.com/${encodeURIComponent(ref)}`;
 
-    fetch(funcUrl)
+    fetch(apiUrl)
       .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch scripture from proxy");
+        if (!res.ok) throw new Error(`Failed to fetch scripture: ${res.status}`);
         return res.json();
       })
       .then((data) => {
         if (data.error) throw new Error(data.error);
-        setText(data.text || "");
+        setText(data.text || (data.verses ? data.verses.map(v => v.text).join(" ") : ""));
       })
       .catch((err) => {
-        console.error("Scripture proxy error:", err);
+        console.error("Scripture fetch error:", err);
         setError(err.message);
       })
       .finally(() => setLoading(false));
