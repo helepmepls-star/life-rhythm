@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import { auth, db } from "../firebaseConfig";
 import { collection, onSnapshot, query, orderBy, limit } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import CurrentSegment from "../components/CurrentSegment";
 import usePrayerReminder from "../hook/usePrayerReminder";
 
@@ -12,6 +13,7 @@ export default function Dashboard({ user }) {
   const [latestAffirmation, setLatestAffirmation] = useState(null);
   const [featuredResource, setFeaturedResource] = useState(null);
   const [latestCounselor, setLatestCounselor] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
 
   // Use prayer reminder hook
   const { testNotification } = usePrayerReminder();
@@ -19,6 +21,15 @@ export default function Dashboard({ user }) {
   useEffect(() => {
     const user = auth.currentUser;
     if (!user) return;
+
+    // Fetch user profile
+    const fetchProfile = async () => {
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (userDoc.exists()) {
+        setUserProfile(userDoc.data());
+      }
+    };
+    fetchProfile();
 
     // 🔹 Latest prayer
     const prayerRef = query(collection(db, "users", user.uid, "prayers"), orderBy("createdAt", "desc"), limit(1));
@@ -56,6 +67,7 @@ export default function Dashboard({ user }) {
   return (
     <div className="dashboard-container">
       <h1>The Sanctuary</h1>
+      {userProfile && <p>Welcome, {userProfile.name} from {userProfile.country}!</p>}
       <p>Your spiritual journey at a glance.</p>
 
       <div className="dashboard-grid">
