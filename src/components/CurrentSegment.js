@@ -1,5 +1,6 @@
 import React from "react";
 import { radiantSchedule } from "../radiantSchedule";
+import Scripture from "./Scripture";
 
 export default function CurrentSegment() {
   const now = new Date();
@@ -20,10 +21,13 @@ export default function CurrentSegment() {
 
   if (!currentSeg) return <p>No current segment.</p>;
 
+  // Extract reference from scripture, e.g., 'Ps 24:7 — "Lift up..."' -> 'Ps 24:7'
+  const reference = currentSeg.scripture.split(' — ')[0];
+
   return (
     <div className="dashboard-card">
       <h3>Current Radiant Segment: {currentSeg.time} — {currentSeg.title}</h3>
-      <p><strong>Scripture:</strong> {currentSeg.scripture}</p>
+      <Scripture reference={reference} />
       <p><strong>Worship:</strong> {currentSeg.worship}</p>
       <p><strong>The Rhythm:</strong> {currentSeg.rhythm}</p>
       <p><strong>Decree:</strong> {currentSeg.decree}</p>
