@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import { auth, db } from "../firebaseConfig";
 import { collection, onSnapshot, query, orderBy, limit } from "firebase/firestore";
+import CurrentSegment from "../components/CurrentSegment";
 
 export default function Dashboard({ user }) {
   const [latestPrayer, setLatestPrayer] = useState(null);
@@ -54,6 +55,7 @@ export default function Dashboard({ user }) {
       <p>Your spiritual journey at a glance.</p>
 
       <div className="dashboard-grid">
+        <CurrentSegment />
         <div className="dashboard-quicklinks">
           <button onClick={() => navigate('/guide')}>Daily Guide</button>
           <button onClick={() => navigate('/bible')}>Bible</button>
