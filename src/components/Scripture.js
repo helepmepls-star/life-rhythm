@@ -94,7 +94,7 @@ export default function Scripture({ reference }) {
     const fullBook = bookMap[book] || book;
 
     // Load the book JSON
-    import(`../data/${fullBook}.json`)
+    import(`../../public/data/${fullBook}.json`)
       .then((bibleBook) => {
         const chapters = bibleBook.chapters;
         const chap = chapters.find(c => c.chapter === chapter);
