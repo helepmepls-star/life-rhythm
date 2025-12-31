@@ -2,19 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./Home.css";
 import { auth } from "../firebaseConfig";
 import { signOut } from "firebase/auth";
-import Scripture from "../components/Scripture";
 import { useNavigate } from "react-router-dom";
+import CurrentSegment from "../components/CurrentSegment";
+import { radiantSchedule } from "../radiantSchedule";
 
-const schedule = [
-  {
-    name: "Sanctuary",
-    focus: "Rest and reset",
-    worship: "Quiet praise",
-    rhythm: "Reflect",
-    decree: "Speak peace",
-    scripture: "Psalm 23:1-3"
-  }
-];
+const schedule = radiantSchedule;
 
 export default function Home({ user }) {
   const navigate = useNavigate();
@@ -25,8 +17,9 @@ export default function Home({ user }) {
     const updateWatch = () => {
       const now = new Date();
       const hours = now.getHours();
-      const index = Math.floor(hours / 3) % 8;
-      setCurrentWatch(schedule[index]);
+      const index = Math.floor(hours / 3);
+      const adjustedIndex = Math.min(index, 6); // Max 6 for 7 segments
+      setCurrentWatch(schedule[adjustedIndex]);
 
       const cycleStart = Math.floor(hours / 3) * 3;
       const cycleEnd = cycleStart + 3;
@@ -56,9 +49,9 @@ export default function Home({ user }) {
     <div className="home-container">
       <div className="hero">
         <h1>
-          Welcome{user ? `, ${user.displayName || user.email}` : ""} to your {currentWatch?.name ?? "Watch"}
+          Welcome{user ? `, ${user.displayName || user.email}` : ""} to your {currentWatch?.title ?? "Watch"}
         </h1>
-        <p><strong>Focus:</strong> {currentWatch?.focus ?? ""}</p>
+        <p><strong>Focus:</strong> {currentWatch?.title ?? ""}</p>
         <div className="watch-ring">
           <svg viewBox="0 0 36 36" className="circular-chart">
             <path
@@ -80,11 +73,7 @@ export default function Home({ user }) {
       </div>
 
       <div className="live-card">
-        <h2>Current Segment</h2>
-        <p><strong>Segment 1 (Worship):</strong> {currentWatch?.worship ?? ""}</p>
-        <p><strong>The Rhythm (Action):</strong> {currentWatch?.rhythm ?? ""}</p>
-        <p><strong>Segment 2 (Prayer/Decree):</strong> {currentWatch?.decree ?? ""}</p>
-        <Scripture reference={currentWatch?.scripture} />
+        <CurrentSegment />
       </div>
 
       <div className="quick-links">
