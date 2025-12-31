@@ -7,6 +7,7 @@ import { doc, getDoc } from "firebase/firestore";
 import CurrentSegment from "../components/CurrentSegment";
 import usePrayerReminder from "../hook/usePrayerReminder";
 import usePWAInstall from "../hook/usePWAInstall";
+import useFCM from "../hook/useFCM";
 
 export default function Dashboard({ user }) {
   const [latestPrayer, setLatestPrayer] = useState(null);
@@ -21,6 +22,9 @@ export default function Dashboard({ user }) {
 
   // Use PWA install hook
   const { isInstallable, installPWA } = usePWAInstall();
+
+  // Use FCM hook
+  const { token, permission } = useFCM();
 
   useEffect(() => {
     const user = auth.currentUser;
